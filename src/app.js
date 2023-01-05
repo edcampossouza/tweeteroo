@@ -14,13 +14,13 @@ app.get("/tweets", (req, res) => {
 });
 
 app.post("/sign-up", (req, res) => {
-  const r = signUp(req.body);
-  res.send("OK");
+  const resp = signUp(req.body);
+  res.status(resp.code).send(resp.message);
 });
 
 app.post("/tweets", (req, res) => {
-  const data = postTweet(req.body);
-  res.send(data);
+  const r = postTweet(req.body);
+  res.send(r);
 });
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));

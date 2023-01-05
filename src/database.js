@@ -4,16 +4,16 @@ let users = [];
 function signUp(user) {
   if (!user) {
     console.log("signup nenhum dado enviado");
-    return false;
+    return { code: 400, message: "Todos os campos são obrigatórios!" };
   }
   const { username, avatar } = user;
   if (!username || !avatar) {
     console.log("signup dados incorretos");
-    return false;
+    return { code: 400, message: "Todos os campos são obrigatórios!" };
   }
   users.push({ username, avatar });
   console.log("signup depois da insercao", users);
-  return true;
+  return { code: 201, message: "OK" };
 }
 
 function postTweet(data) {
