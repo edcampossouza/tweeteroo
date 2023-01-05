@@ -22,7 +22,7 @@ function signUp(user) {
 }
 
 function postTweet(data) {
-  console.log(data);
+  console.log('data', data);
   if (!data) {
     console.log("pottweet nenhum dado enviado");
     return { code: 400, message: "UNAUTHORIZED" };

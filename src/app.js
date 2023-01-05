@@ -24,7 +24,10 @@ app.post("/sign-up", (req, res) => {
 });
 
 app.post("/tweets", (req, res) => {
-  const data = postTweet(req.body);
+  const user = req.body;
+  const userHeader = req.headers.user;
+  if (userHeader) user.username = userHeader;
+  const data = postTweet(user);
   res.status(data.code).send(data.message);
 });
 
