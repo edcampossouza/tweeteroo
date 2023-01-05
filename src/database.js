@@ -22,13 +22,13 @@ function signUp(user) {
 }
 
 function postTweet(data) {
-  console.log('data', data);
+  console.log("data", data);
   if (!data) {
     console.log("pottweet nenhum dado enviado");
     return { code: 400, message: "UNAUTHORIZED" };
   }
   const { username, tweet } = data;
-  if (!username || !tweet) {
+  if (!username || !tweet || typeof tweet !== "string") {
     console.log("pottweet dados incorretos");
     return { code: 400, message: "UNAUTHORIZED" };
   }
@@ -38,7 +38,7 @@ function postTweet(data) {
   }
   const avatar = user ? user.avatar : "";
   tweets = [{ username, tweet, avatar }, ...tweets];
-  return { code: 200, message: "OK" };
+  return { code: 201, message: "OK" };
 }
 
 function getTweets() {
