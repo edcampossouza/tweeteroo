@@ -41,14 +41,28 @@ function postTweet(data) {
   return { code: 201, message: "OK" };
 }
 
-function getTweets() {
+function getTweets(page) {
+  let intPage = 1;
+  if (page) {
+    intPage = parseInt(page);
+    if (isNaN(intPage)) intPage = 1;
+  }
+  console.log('page', intPage)
   console.log("tweets", tweets);
-  return { code: 200, data: tweets.slice(0, 10) };
+  return { code: 200, data: tweets.slice((intPage - 1) * 10, 10) };
 }
 
-function getTweetsFromUser(username) {
+function getTweetsFromUser(username, page) {
+  let intPage = 1;
+  if (page) {
+    intPage = parseInt(page);
+    if (isNaN(intPage)) intPage = 1;
+  }
   console.log(`tweets from ${username}`);
-  const data = tweets.filter((u) => u.username === username).slice(0, 10);
+  console.log('page', intPage)
+  const data = tweets
+    .filter((u) => u.username === username)
+    .slice((intPage - 1) * 10, 10);
   console.log(data);
   return { code: 200, data };
 }

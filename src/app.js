@@ -9,12 +9,14 @@ app.use(express.json());
 app.use(cors());
 
 app.get("/tweets", (req, res) => {
-  const data = getTweets();
+  const page = req.query.page;
+  const data = getTweets(page);
   res.status(data.code).send(data.data);
 });
 
 app.get("/tweets/:username", (req, res) => {
-  const data = getTweetsFromUser(req.params.username);
+  const page = req.query.page;
+  const data = getTweetsFromUser(req.params.username, page);
   res.status(data.code).send(data.data);
 });
 
