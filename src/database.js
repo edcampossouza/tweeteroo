@@ -7,7 +7,12 @@ function signUp(user) {
     return { code: 400, message: "Todos os campos são obrigatórios!" };
   }
   const { username, avatar } = user;
-  if (!username || !avatar) {
+  if (
+    !username ||
+    !avatar ||
+    typeof username !== "string" ||
+    typeof avatar !== "string"
+  ) {
     console.log("signup dados incorretos");
     return { code: 400, message: "Todos os campos são obrigatórios!" };
   }
@@ -41,4 +46,11 @@ function getTweets() {
   return { code: 200, data: tweets.slice(0, 10) };
 }
 
-export { signUp, postTweet, getTweets };
+function getTweetsFromUser(username) {
+  console.log(`tweets from ${username}`);
+  const data = tweets.filter((u) => u.username === username).slice(0, 10);
+  console.log(data);
+  return { code: 200, data };
+}
+
+export { signUp, postTweet, getTweets, getTweetsFromUser };

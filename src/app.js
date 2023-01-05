@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import { getTweets, postTweet, signUp } from "./database.js";
+import { getTweets, getTweetsFromUser, postTweet, signUp } from "./database.js";
 
 const PORT = 5000;
 
@@ -14,13 +14,13 @@ app.get("/tweets", (req, res) => {
 });
 
 app.get("/tweets/:username", (req, res) => {
-  const data = getTweets();
-  res.status(200).send(data);
+  const data = getTweetsFromUser(req.params.username);
+  res.status(data.code).send(data.data);
 });
 
 app.post("/sign-up", (req, res) => {
-  const resp = signUp(req.body);
-  res.status(resp.code).send(resp.message);
+  const data = signUp(req.body);
+  res.status(data.code).send(data.message);
 });
 
 app.post("/tweets", (req, res) => {
