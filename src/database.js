@@ -45,24 +45,28 @@ function getTweets(page) {
   let intPage = 1;
   if (page) {
     intPage = parseInt(page);
-    if (isNaN(intPage)) intPage = 1;
+    if (isNaN(intPage) || intPage < 1) {
+      return { code: 400, data: "Informe uma página válida!" };
+    }
   }
-  console.log('page', intPage)
+  console.log("page", intPage);
   console.log("tweets", tweets);
-  return { code: 200, data: tweets.slice((intPage - 1) * 10, 10) };
+  return { code: 200, data: tweets.slice((intPage - 1) * 10, 10 * intPage) };
 }
 
 function getTweetsFromUser(username, page) {
   let intPage = 1;
   if (page) {
     intPage = parseInt(page);
-    if (isNaN(intPage)) intPage = 1;
+    if (isNaN(intPage) || intPage < 1) {
+      return { code: 400, data: "Informe uma página válida!" };
+    }
   }
   console.log(`tweets from ${username}`);
-  console.log('page', intPage)
+  console.log("page", intPage);
   const data = tweets
     .filter((u) => u.username === username)
-    .slice((intPage - 1) * 10, 10);
+    .slice((intPage - 1) * 10, 10 * intPage);
   console.log(data);
   return { code: 200, data };
 }
