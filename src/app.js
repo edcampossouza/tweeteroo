@@ -10,6 +10,11 @@ app.use(cors());
 
 app.get("/tweets", (req, res) => {
   const data = getTweets();
+  res.status(data.code).send(data.data);
+});
+
+app.get("/tweets/:username", (req, res) => {
+  const data = getTweets();
   res.status(200).send(data);
 });
 
@@ -19,8 +24,8 @@ app.post("/sign-up", (req, res) => {
 });
 
 app.post("/tweets", (req, res) => {
-  const r = postTweet(req.body);
-  res.send(r);
+  const data = postTweet(req.body);
+  res.status(data.code).send(data.message);
 });
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));

@@ -17,27 +17,28 @@ function signUp(user) {
 }
 
 function postTweet(data) {
+  console.log(data);
   if (!data) {
     console.log("pottweet nenhum dado enviado");
-    return "UNAUTHORIZED";
+    return { code: 400, message: "UNAUTHORIZED" };
   }
   const { username, tweet } = data;
   if (!username || !tweet) {
     console.log("pottweet dados incorretos");
-    return "UNAUTHORIZED";
+    return { code: 400, message: "UNAUTHORIZED" };
   }
   const user = users.find((u) => u.username === username);
   if (!user) {
-    return "UNAUTHORIZED";
+    return { code: 400, message: "UNAUTHORIZED" };
   }
   const avatar = user ? user.avatar : "";
   tweets = [{ username, tweet, avatar }, ...tweets];
-  return "OK";
+  return { code: 200, message: "OK" };
 }
 
 function getTweets() {
   console.log("tweets", tweets);
-  return tweets.slice(0, 10);
+  return { code: 200, data: tweets.slice(0, 10) };
 }
 
 export { signUp, postTweet, getTweets };
